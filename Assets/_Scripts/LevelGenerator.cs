@@ -7,29 +7,35 @@ public class LevelGenerator : MonoBehaviour
 {
     [SerializeField] private FloorTile FloorTilePrefab;
     [SerializeField] private Tile WallTilePrefab;
-
+    [SerializeField] private PlayerController Player;
     [SerializeField] private LevelData TestLevelData;
 
     private Tile[,] _currentLevel;
 
     private void Awake()
     {
+        LoadLevel(TestLevelData);
+    }
+
+    private void LoadLevel(LevelData level)
+    {
         int row = 0;
         int column = 0;
 
-        int rowCount = TestLevelData.Tiles.Count / TestLevelData.ColumnCount;
+        int rowCount = level.Tiles.Count / level.ColumnCount;
 
-        _currentLevel = new Tile[rowCount, TestLevelData.ColumnCount];
-        for (int i = 0; i < TestLevelData.Tiles.Count ; i++)
+        _currentLevel = new Tile[rowCount, level.ColumnCount];
+        for (int i = 0; i < level.Tiles.Count ; i++)
         {
             if (row == rowCount)
             {
                 row = 0;
                 column++;
             }
-            SpawnTile(row, column, TestLevelData.Tiles[i].TileType);
+            SpawnTile(row, column, level.Tiles[i].TileType);
             row++;
         }
+        Player.Setup(level.PlayerPosition, level.PlayerStartColor);
     }
 
     private void SpawnTile(int row, int column, TileType tileType)
