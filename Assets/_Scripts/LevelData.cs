@@ -16,6 +16,12 @@ public class LevelTileData
 {
     public TileType TileType;
     public int TilePickupColor = -1;
+
+    public LevelTileData()
+    {
+        TileType = TileType.Empty;
+        TilePickupColor = -1;
+    }
 }
     
 public enum TileType
