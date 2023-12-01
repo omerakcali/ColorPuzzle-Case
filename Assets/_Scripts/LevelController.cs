@@ -34,7 +34,7 @@ public class LevelController : MonoBehaviour
                 row = 0;
                 column++;
             }
-            SpawnTile(row, column, level.Tiles[i].TileType);
+            SpawnTile(row, column, level.Tiles[i]);
             row++;
         }
         Player.Setup(level.PlayerPosition, level.PlayerStartColor);
@@ -42,10 +42,10 @@ public class LevelController : MonoBehaviour
         playerTile.SetColor(level.PlayerStartColor);
     }
 
-    private void SpawnTile(int row, int column, TileType tileType)
+    private void SpawnTile(int row, int column, LevelTileData levelTileData)
     {
         Tile pickedPrefab = null;
-        switch (tileType)
+        switch (levelTileData.TileType)
         {
             case TileType.Floor:
                 pickedPrefab = FloorTilePrefab;
@@ -62,6 +62,8 @@ public class LevelController : MonoBehaviour
         var tile = Instantiate(pickedPrefab, transform);
         tile.transform.position = new Vector3(row, 0, column);
         _currentLevel[row, column] = tile;
+
+        tile.SetTile(levelTileData);
     }
 
     public bool CanMove(Vector2Int position, Vector2Int direction)

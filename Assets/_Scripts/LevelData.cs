@@ -15,6 +15,7 @@ public class LevelData : ScriptableObject
 public class LevelTileData
 {
     public TileType TileType;
+    public Color TilePickupColor = Color.clear;
 }
     
 public enum TileType
