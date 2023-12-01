@@ -14,6 +14,8 @@ public class LevelController : MonoBehaviour
 
     private void Awake()
     {
+        Player.Init(this);
+        
         LoadLevel(TestLevelData);
     }
 
@@ -58,5 +60,34 @@ public class LevelController : MonoBehaviour
         var tile = Instantiate(pickedPrefab, transform);
         tile.transform.position = new Vector3(row, 0, column);
         _currentLevel[row, column] = tile;
+    }
+
+    public bool CanMove(Vector2Int position, Vector2Int direction)
+    {
+        try
+        {
+            var nextTile = _currentLevel[position.x + direction.x, position.y + direction.y];
+            return nextTile != null && nextTile is FloorTile;
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            return false;
+        }
+    }
+
+    public List<FloorTile> GetFloorTilesInWay(Vector2Int startPosition, Vector2Int direction)
+    {
+        var tiles = new List<FloorTile>();
+
+        var position = startPosition;
+        Tile nextTile = _currentLevel[position.x + direction.x, position.y + direction.y];
+        while (nextTile is FloorTile nextFloorTile)
+        {
+            tiles.Add(nextFloorTile);
+            position += direction;
+            nextTile =_currentLevel[position.x + direction.x, position.y + direction.y];
+        }
+
+        return tiles;
     }
 }

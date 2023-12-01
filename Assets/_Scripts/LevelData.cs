@@ -7,7 +7,7 @@ public class LevelData : ScriptableObject
 {
     public int ColumnCount;
     public List<LevelTileData> Tiles;
-    public Vector2 PlayerPosition;
+    public Vector2Int PlayerPosition;
     public Color PlayerStartColor;
 }
 
