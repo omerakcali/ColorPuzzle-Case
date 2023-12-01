@@ -38,6 +38,8 @@ public class LevelController : MonoBehaviour
             row++;
         }
         Player.Setup(level.PlayerPosition, level.PlayerStartColor);
+        var playerTile = _currentLevel[level.PlayerPosition.x, level.PlayerPosition.y] as FloorTile;
+        playerTile.SetColor(level.PlayerStartColor);
     }
 
     private void SpawnTile(int row, int column, TileType tileType)
