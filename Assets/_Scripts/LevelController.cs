@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelGenerator : MonoBehaviour
+public class LevelController : MonoBehaviour
 {
     [SerializeField] private FloorTile FloorTilePrefab;
     [SerializeField] private Tile WallTilePrefab;
