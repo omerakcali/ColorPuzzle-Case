@@ -21,21 +21,21 @@ public class LevelController : MonoBehaviour
 
     private void LoadLevel(LevelData level)
     {
-        int row = 0;
-        int column = 0;
+        int rowIndex = 0;
+        int columnIndex = 0;
 
         int rowCount = level.Tiles.Count / level.ColumnCount;
 
         _currentLevel = new Tile[rowCount, level.ColumnCount];
         for (int i = 0; i < level.Tiles.Count ; i++)
         {
-            if (row == rowCount)
+            if (columnIndex == level.ColumnCount)
             {
-                row = 0;
-                column++;
+                columnIndex = 0;
+                rowIndex++;
             }
-            SpawnTile(row, column, level.Tiles[i]);
-            row++;
+            SpawnTile(rowIndex, columnIndex, level.Tiles[i]);
+            columnIndex++;
         }
         Player.Setup(level.PlayerPosition, level.PlayerStartColor);
         var playerTile = _currentLevel[level.PlayerPosition.x, level.PlayerPosition.y] as FloorTile;
