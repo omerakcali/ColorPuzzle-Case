@@ -8,9 +8,9 @@ public class FloorTile : Tile
     [SerializeField] private MeshRenderer Renderer;
 
     [SerializeField] private ColorPickup ColorPickup;
-    public Color Color => _currentColor;
+    public int Color => _currentColor;
 
-    private Color _currentColor;
+    private int _currentColor;
     private MaterialPropertyBlock _materialPropertyBlock;
 
     private void Awake()
@@ -19,17 +19,18 @@ public class FloorTile : Tile
         Renderer.GetPropertyBlock(_materialPropertyBlock);
     }
 
-    public void SetColor(Color newColor)
+    public void SetColor(int newColorId)
     {
-        _currentColor = newColor;
+        var color = ColorManager.Instance.GetColorById(newColorId);
+        _currentColor = newColorId;
         
-        _materialPropertyBlock.SetColor("_Color",_currentColor);
+        _materialPropertyBlock.SetColor("_Color",color);
         Renderer.SetPropertyBlock(_materialPropertyBlock);
     }
 
     public override void SetTile(LevelTileData tileData)
     {
-        if(tileData.TilePickupColor == Color.clear) SetEmptyMode();
+        if(tileData.TilePickupColor == -1) SetEmptyMode();
         else SetColorPickupMode(tileData.TilePickupColor);
     }
 
@@ -38,13 +39,13 @@ public class FloorTile : Tile
         ColorPickup.gameObject.SetActive(false);
     }
     
-    public void SetColorPickupMode(Color pickupColor)
+    public void SetColorPickupMode(int pickupColorId)
     {
         ColorPickup.gameObject.SetActive(true);
-        ColorPickup.SetColor(pickupColor);
+        ColorPickup.SetColor(pickupColorId);
     }
 
     public bool HasColorPickup() => ColorPickup.gameObject.activeInHierarchy;
 
-    public Color GetPickupColor() => ColorPickup.CurrentColor;
+    public int GetPickupColor() => ColorPickup.CurrentColor;
 }

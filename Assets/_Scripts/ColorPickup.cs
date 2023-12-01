@@ -7,7 +7,7 @@ public class ColorPickup : MonoBehaviour
 {
     [SerializeField] private MeshRenderer Renderer;
 
-    public Color CurrentColor { get; private set; }
+    public int CurrentColor { get; private set; }
     private MaterialPropertyBlock _materialPropertyBlock;
     
 
@@ -17,9 +17,10 @@ public class ColorPickup : MonoBehaviour
         Renderer.GetPropertyBlock(_materialPropertyBlock);
     }
 
-    public void SetColor(Color color)
+    public void SetColor(int colorId)
     {
-        CurrentColor = color;
+        var color = ColorManager.Instance.GetColorById(colorId);
+        CurrentColor = colorId;
         _materialPropertyBlock.SetColor("_Color",color);
         Renderer.SetPropertyBlock(_materialPropertyBlock);
     }

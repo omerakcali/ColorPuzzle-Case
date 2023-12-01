@@ -8,14 +8,14 @@ public class LevelData : ScriptableObject
     public int ColumnCount;
     public List<LevelTileData> Tiles;
     public Vector2Int PlayerPosition;
-    public Color PlayerStartColor;
+    public int PlayerStartColor;
 }
 
 [Serializable]
 public class LevelTileData
 {
     public TileType TileType;
-    public Color TilePickupColor = Color.clear;
+    public int TilePickupColor = -1;
 }
     
 public enum TileType

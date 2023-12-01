@@ -15,54 +15,54 @@ MonoBehaviour:
   ColumnCount: 5
   Tiles:
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 2
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 2
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 2
-    TilePickupColor: {r: 1, g: 0, b: 0, a: 1}
+    TilePickupColor: 2
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 2
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 2
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 2
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 2
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 2
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 2
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   - TileType: 1
-    TilePickupColor: {r: 0, g: 0, b: 0, a: 0}
+    TilePickupColor: -1
   PlayerPosition: {x: 1, y: 1}
-  PlayerStartColor: {r: 0, g: 1, b: 0.01956582, a: 1}
+  PlayerStartColor: 1

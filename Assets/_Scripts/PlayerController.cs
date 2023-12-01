@@ -12,12 +12,12 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private MeshRenderer Renderer;
     [SerializeField] private float MoveSpeed = 10f;
-    
+
     private LevelController _levelController;
     
     private InputActions _inputActions;
     private Vector2Int _currentPosition;
-    private Color _currentColor;
+    private int _currentColor;
     private bool Moving => _moveTween.IsActive();
 
     private MaterialPropertyBlock _materialPropertyBlock;
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
             {
                 var floorTile = tiles[i];
 
-                bool fail = floorTile.Color != new Color(0,0,0,0) && floorTile.Color != _currentColor;
+                bool fail = floorTile.Color != 0 && floorTile.Color != _currentColor;
                 var tween = transform.DOMove(floorTile.transform.position, 1 / MoveSpeed);
                 _moveTween.Append(tween);
                 _moveTween.AppendCallback(() =>
@@ -89,16 +89,17 @@ public class PlayerController : MonoBehaviour
         Move(value > 0 ? Vector2.right : Vector2.left);
     }
 
-    public void Setup(Vector2Int position, Color color)
+    public void Setup(Vector2Int position, int colorId)
     {
         _currentPosition = position;
         transform.position = new Vector3(position.x,0,position.y);
-        SetColor(color);
+        SetColor(colorId);
     }
 
-    private void SetColor(Color color)
+    private void SetColor(int colorId)
     {
-        _currentColor = color;  
+        var color = ColorManager.Instance.GetColorById(colorId);
+        _currentColor = colorId;  
         _materialPropertyBlock.SetColor("_Color", color);
         Renderer.SetPropertyBlock(_materialPropertyBlock);
     }
