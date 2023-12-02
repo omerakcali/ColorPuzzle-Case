@@ -7,17 +7,28 @@ public class LevelController : MonoBehaviour
 {
     [SerializeField] private TilePool TilePool;
     [SerializeField] private PlayerController Player;
-    [SerializeField] private LevelData TestLevelData;
+    [SerializeField] private List<LevelData> Levels;
 
+    private int _currentLevelIndex;
     private Tile[,] _currentLevel;
 
     private void Awake()
     {
         Player.Init(this);
-        
-        LoadLevel(TestLevelData);
     }
 
+    public void StartNextLevel()
+    {
+        if(_currentLevel!=null) UnloadCurrentLevel();
+        LoadLevel(Levels[_currentLevelIndex]);
+    }
+
+    public void OnLevelWon()
+    {
+        _currentLevelIndex++;
+        if (_currentLevelIndex == Levels.Count) _currentLevelIndex = 0;
+    }
+    
     private void LoadLevel(LevelData level)
     {
         int rowIndex = 0;
@@ -25,7 +36,7 @@ public class LevelController : MonoBehaviour
 
         int rowCount = level.Tiles.Count / level.ColumnCount;
 
-        _currentLevel = new Tile[rowCount, level.ColumnCount];
+        _currentLevel = new Tile[level.ColumnCount, rowCount];
         for (int i = 0; i < level.Tiles.Count ; i++)
         {
             if (columnIndex == level.ColumnCount)
@@ -44,14 +55,25 @@ public class LevelController : MonoBehaviour
         playerTile.SetColor(level.PlayerStartColor);
     }
 
+    private void UnloadCurrentLevel()
+    {
+        foreach (var tile in _currentLevel)
+        {
+            if(tile is FloorTile floorTile) TilePool.DisposeFloorTile(floorTile);
+            else TilePool.DisposeWallTile(tile);
+        }
+
+        _currentLevel = null;
+    }
+
     private void SpawnTile(int row, int column, LevelTileData levelTileData)
     {
         
         if(levelTileData.TileType == TileType.Empty) return;
         var tile = levelTileData.TileType == TileType.Floor ? TilePool.RequestFloorTile() : TilePool.RequestWallTile();
         tile.transform.SetParent(transform);
-        tile.transform.position = new Vector3(row, 0, column);
-        _currentLevel[row, column] = tile;
+        tile.transform.position = new Vector3(column, 0, row);
+        _currentLevel[column, row] = tile;
 
         tile.SetTile(levelTileData);
     }

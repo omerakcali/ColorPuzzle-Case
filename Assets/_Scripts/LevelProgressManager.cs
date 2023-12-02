@@ -37,7 +37,7 @@ public class LevelProgressManager : MonoBehaviour
 
     private void CompleteLevel()
     {
-        
+        GameEvents.LevelCompleted.Invoke();
     }
 
     public float GetCurrentProgress()
@@ -50,4 +50,6 @@ public class GameEvents
 {
     public static UnityEvent<LevelData> NewLevelLoad = new();
     public static UnityEvent<FloorTile> TileColored = new();
+    public static UnityEvent LevelCompleted = new();
+    public static UnityEvent LevelFailed = new();
 }
