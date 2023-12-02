@@ -29,6 +29,16 @@ public class FloorTile : Tile
         GameEvents.TileColored.Invoke(this);
     }
 
+    public void SetColor(string newColorName)
+    {
+        var color = ColorManager.Instance.GetColorByName(newColorName);
+        _currentColor = color.Id;
+        
+        _materialPropertyBlock.SetColor("_Color",color.Color);
+        Renderer.SetPropertyBlock(_materialPropertyBlock);
+        GameEvents.TileColored.Invoke(this);
+    }
+
     public override void SetTile(LevelTileData tileData)
     {
         if(tileData.TilePickupColor == -1) SetEmptyMode();

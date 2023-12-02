@@ -17,5 +17,5 @@ public class ColorManager : MonoBehaviour
 
     public Color GetColorById(int id) => ColorsData.GetById(id).Color;
 
-    public Color GetColorByName(string name) => ColorsData.GetByName(name).Color;
+    public GameColorData GetColorByName(string name) => ColorsData.GetByName(name);
 }

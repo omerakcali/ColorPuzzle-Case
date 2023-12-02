@@ -20,7 +20,7 @@ public class TilePool : MonoBehaviour
         {
             var floorTile = Instantiate(FloorTilePrefab,transform);
             floorTile.gameObject.SetActive(false);
-            _floorTilePool.Push(Instantiate(floorTile));
+            _floorTilePool.Push(floorTile);
 
             var wallTile = Instantiate(WallTilePrefab, transform);
             wallTile.gameObject.SetActive(false);
@@ -33,13 +33,16 @@ public class TilePool : MonoBehaviour
     {
         if (_floorTilePool.Count == 0)
         {
-            return Instantiate(FloorTilePrefab);
+            var tile = Instantiate(FloorTilePrefab);
+            tile.SetColor("Floor");
+            return tile;
         }
         else
         {
             var tile = _floorTilePool.Pop();
             tile.gameObject.SetActive(true);
             tile.transform.SetParent(null);
+            tile.SetColor("Floor");
             return tile;
         }
     }
@@ -61,7 +64,7 @@ public class TilePool : MonoBehaviour
     
     public void DisposeFloorTile(FloorTile tile)
     {
-        tile.SetColor(0);
+        tile.SetColor("Floor");
         tile.gameObject.SetActive(false);
         tile.transform.SetParent(transform);
         _floorTilePool.Push(tile);
