@@ -1,6 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using NaughtyAttributes;
+using UnityEditor;
 using UnityEngine;
 
 public class LevelController : MonoBehaviour
@@ -12,6 +14,21 @@ public class LevelController : MonoBehaviour
     private int _currentLevelIndex;
     private Tile[,] _currentLevel;
 
+#if UNITY_EDITOR
+    [Button]
+    private void CollectLevels()
+    {
+        string[] files = Directory.GetFiles("Assets/Levels/", "*.asset", SearchOption.TopDirectoryOnly);
+        Levels = new();
+        
+        foreach (var file in files)
+        {
+            var levelData = AssetDatabase.LoadAssetAtPath<LevelData>(file);
+            if(levelData !=null) Levels.Add(levelData);
+        }
+    }
+#endif
+    
     private void Awake()
     {
         _currentLevelIndex = PlayerPrefs.GetInt("level", 0);
