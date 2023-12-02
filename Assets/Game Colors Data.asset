@@ -25,3 +25,6 @@ MonoBehaviour:
   - Name: Green
     Id: 2
     Color: {r: 0, g: 1, b: 0.03644657, a: 1}
+  - Name: Blue
+    Id: 3
+    Color: {r: 0, g: 0.015195131, b: 1, a: 1}

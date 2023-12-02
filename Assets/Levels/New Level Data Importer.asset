@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0a34951935f5ac4ca53bba0ddbc8f48, type: 3}
   m_Name: New Level Data Importer
   m_EditorClassIdentifier: 
-  LevelId: 1
+  LevelId: 2
