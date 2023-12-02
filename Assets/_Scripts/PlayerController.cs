@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     private Vector2Int _currentPosition;
     private int _currentColor;
     private bool Moving => _moveTween.IsActive();
+    private bool _failed;
 
     private MaterialPropertyBlock _materialPropertyBlock;
     private Sequence _moveTween;
@@ -59,9 +60,9 @@ public class PlayerController : MonoBehaviour
                     }
                     bool fail = floorTile.Color != 0 && floorTile.Color != _currentColor;
                     
-                    if (!fail)
+                    if (floorTile.Color == 0)
                         floorTile.SetColor(_currentColor);
-                    else
+                    else if(fail)
                     {
                         Fail();
                     }
@@ -78,19 +79,21 @@ public class PlayerController : MonoBehaviour
 
     private void Fail()
     {
+        _failed = true;
         _moveTween.Kill();
+        gameObject.SetActive(false);
     }
 
     private void OnMoveVerticalInputPerformed(InputAction.CallbackContext context)
     {
-        if(Moving) return;
+        if(Moving || _failed) return;
         var value = context.ReadValue<float>();
         Move(value > 0 ? Vector2.up : Vector2.down);
     }
 
     private void OnMoveHorizontalInputPerformed(InputAction.CallbackContext context)
     {
-        if(Moving) return;
+        if(Moving || _failed) return;
         var value = context.ReadValue<float>();
         Move(value > 0 ? Vector2.right : Vector2.left);
     }
@@ -99,6 +102,8 @@ public class PlayerController : MonoBehaviour
     {
         _currentPosition = position;
         transform.position = new Vector3(position.x,0,position.y);
+        _failed = false;
+        gameObject.SetActive(true);
         SetColor(colorId);
     }
 
