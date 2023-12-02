@@ -82,6 +82,7 @@ public class PlayerController : MonoBehaviour
         _failed = true;
         _moveTween.Kill();
         gameObject.SetActive(false);
+        GameEvents.LevelFailed.Invoke();
     }
 
     private void OnMoveVerticalInputPerformed(InputAction.CallbackContext context)

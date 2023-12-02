@@ -26,7 +26,8 @@ public class FloorTile : Tile
         
         _materialPropertyBlock.SetColor("_Color",color);
         Renderer.SetPropertyBlock(_materialPropertyBlock);
-        GameEvents.TileColored.Invoke(this);
+        if(_currentColor != 0)
+            GameEvents.TileColored.Invoke(this);
     }
 
     public void SetColor(string newColorName)
@@ -36,7 +37,8 @@ public class FloorTile : Tile
         
         _materialPropertyBlock.SetColor("_Color",color.Color);
         Renderer.SetPropertyBlock(_materialPropertyBlock);
-        GameEvents.TileColored.Invoke(this);
+        if(_currentColor != 0)
+            GameEvents.TileColored.Invoke(this);
     }
 
     public override void SetTile(LevelTileData tileData)
