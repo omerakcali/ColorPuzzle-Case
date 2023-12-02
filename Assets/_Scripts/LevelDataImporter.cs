@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using NaughtyAttributes;
 using UnityEditor;
 using UnityEngine;
@@ -8,24 +9,46 @@ using UnityEngine;
 [CreateAssetMenu]
 public class LevelDataImporter : ScriptableObject
 {
-    public int LevelId;
-    
     private List<string> _loadedLines;
-    
-    [Button]
-    public void ImportLevelData()
-    {
-        LoadCsvData();
 
+    [SerializeField] private List<TextAsset> LevelTextAssets;
+
+    [Button]
+    private void CollectLevelDataAssets()
+    {
+        var levels = Resources.LoadAll<TextAsset>("Levels");
+        LevelTextAssets = levels.ToList();
+    }
+
+    [Button]
+    private void ImportLevels()
+    {
+        for (var i = 0; i < LevelTextAssets.Count; i++)
+        {
+            var csv = LevelTextAssets[i];
+            LoadCsvData(csv);
+            ImportLevelData(i+1);
+        }
+    }
+    
+    private void ImportLevelData(int levelIndex)
+    {
         var firstLine = _loadedLines[0].Split(',');
 
-        var columnCount = int.Parse(firstLine[0]);
+        var columnCount = firstLine.Length;
 
         Vector2Int playerStartPosition = new Vector2Int(int.Parse(firstLine[1]), int.Parse(firstLine[2]));
 
         int playerStartColor = int.Parse(firstLine[3]);
         
-        LevelData instance = ScriptableObject.CreateInstance<LevelData>();
+        
+        string path = $"Assets/Levels/Level_{levelIndex}.asset";
+
+        var loadedAsset = AssetDatabase.LoadAssetAtPath<LevelData>(path);
+        
+        LevelData instance = loadedAsset != null ? loadedAsset :CreateInstance<LevelData>();
+        if(loadedAsset == null) 
+            AssetDatabase.CreateAsset(instance,path);
 
         instance.ColumnCount = columnCount;
         instance.PlayerPosition = playerStartPosition;
@@ -59,19 +82,14 @@ public class LevelDataImporter : ScriptableObject
                 instance.Tiles.Add(tileData);
             }
         }
-        
-        string path = $"Assets/Levels/Level_{LevelId}.asset";
-        
-        AssetDatabase.CreateAsset(instance,path);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = instance;
     }
 
-    private void LoadCsvData()
+    private void LoadCsvData(TextAsset csv)
     {
-        var csv =Resources.Load<TextAsset>("LevelData");
         var reader = new StringReader(csv.text);
 
         _loadedLines = new();

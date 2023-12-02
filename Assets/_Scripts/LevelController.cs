@@ -59,6 +59,7 @@ public class LevelController : MonoBehaviour
     {
         foreach (var tile in _currentLevel)
         {
+            if(tile == null) continue; //empty grid
             if(tile is FloorTile floorTile) TilePool.DisposeFloorTile(floorTile);
             else TilePool.DisposeWallTile(tile);
         }
