@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour
                 });
             }
 
-            _moveTween.SetEase(Ease.OutCubic);
+            _moveTween.SetEase(Ease.InOutSine);
             _moveTween.AppendCallback(() =>
             {
                 _currentPosition = new Vector2Int((int)transform.position.x, (int)transform.position.z);
