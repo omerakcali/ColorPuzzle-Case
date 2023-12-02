@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
 
                     if (floorTile.HasColorPickup())
                     {
+                        floorTile.SetEmptyMode();
                         SetColor(floorTile.GetPickupColor());
                     }
                     bool fail = floorTile.Color != 0 && floorTile.Color != _currentColor;

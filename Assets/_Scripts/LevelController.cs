@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour
 {
-    [SerializeField] private FloorTile FloorTilePrefab;
-    [SerializeField] private Tile WallTilePrefab;
+    [SerializeField] private TilePool TilePool;
     [SerializeField] private PlayerController Player;
     [SerializeField] private LevelData TestLevelData;
 
@@ -44,22 +43,10 @@ public class LevelController : MonoBehaviour
 
     private void SpawnTile(int row, int column, LevelTileData levelTileData)
     {
-        Tile pickedPrefab = null;
-        switch (levelTileData.TileType)
-        {
-            case TileType.Floor:
-                pickedPrefab = FloorTilePrefab;
-                break;
-            case TileType.Empty:
-                pickedPrefab = null;
-                break;
-            case TileType.Wall:
-                pickedPrefab = WallTilePrefab;
-                break;
-        }
         
-        if(pickedPrefab == null) return;
-        var tile = Instantiate(pickedPrefab, transform);
+        if(levelTileData.TileType == TileType.Empty) return;
+        var tile = levelTileData.TileType == TileType.Floor ? TilePool.RequestFloorTile() : TilePool.RequestWallTile();
+        tile.transform.SetParent(transform);
         tile.transform.position = new Vector3(row, 0, column);
         _currentLevel[row, column] = tile;
 
