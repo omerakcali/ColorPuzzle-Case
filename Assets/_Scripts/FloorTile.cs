@@ -26,6 +26,7 @@ public class FloorTile : Tile
         
         _materialPropertyBlock.SetColor("_Color",color);
         Renderer.SetPropertyBlock(_materialPropertyBlock);
+        GameEvents.TileColored.Invoke(this);
     }
 
     public override void SetTile(LevelTileData tileData)

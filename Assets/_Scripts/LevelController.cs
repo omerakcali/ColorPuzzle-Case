@@ -36,6 +36,9 @@ public class LevelController : MonoBehaviour
             SpawnTile(rowIndex, columnIndex, level.Tiles[i]);
             columnIndex++;
         }
+        
+        GameEvents.NewLevelLoad.Invoke(level);
+
         Player.Setup(level.PlayerPosition, level.PlayerStartColor);
         var playerTile = _currentLevel[level.PlayerPosition.x, level.PlayerPosition.y] as FloorTile;
         playerTile.SetColor(level.PlayerStartColor);
