@@ -31,7 +31,6 @@ public class LevelProgressManager : MonoBehaviour
     {
         _currentColoredFloorTileCount++;
         
-        Debug.Log(GetCurrentProgress());
         if (_currentColoredFloorTileCount == _floorTileCount) CompleteLevel();
     }
 

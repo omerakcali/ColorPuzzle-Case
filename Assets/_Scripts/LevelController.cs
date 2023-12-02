@@ -15,6 +15,7 @@ public class LevelController : MonoBehaviour
     private void Awake()
     {
         Player.Init(this);
+        GameEvents.LevelCompleted.AddListener(OnLevelWon);
     }
 
     public void StartNextLevel()

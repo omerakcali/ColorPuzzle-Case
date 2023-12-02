@@ -11,7 +11,8 @@ public class LevelProgressBar : MonoBehaviour
     [SerializeField] private LevelProgressManager LevelProgressManager;
 
     private Tween _fillTween;
-    private void Awake()
+
+    private void Start()
     {
         GameEvents.NewLevelLoad.AddListener(OnNewLevelLoaded);
         GameEvents.TileColored.AddListener(OnTileColored);

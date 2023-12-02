@@ -61,6 +61,7 @@ public class TilePool : MonoBehaviour
     
     public void DisposeFloorTile(FloorTile tile)
     {
+        tile.SetColor(0);
         tile.gameObject.SetActive(false);
         tile.transform.SetParent(transform);
         _floorTilePool.Push(tile);
