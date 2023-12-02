@@ -47,22 +47,27 @@ public class PlayerController : MonoBehaviour
             {
                 var floorTile = tiles[i];
 
-                bool fail = floorTile.Color != 0 && floorTile.Color != _currentColor;
                 var tween = transform.DOMove(floorTile.transform.position, 1 / MoveSpeed);
                 _moveTween.Append(tween);
                 _moveTween.AppendCallback(() =>
                 {
+
                     if (floorTile.HasColorPickup())
                     {
                         SetColor(floorTile.GetPickupColor());
                     }
+                    bool fail = floorTile.Color != 0 && floorTile.Color != _currentColor;
                     
                     if (!fail)
                         floorTile.SetColor(_currentColor);
                     else
+                    {
                         Fail();
+                    }
                 });
             }
+
+            _moveTween.SetEase(Ease.OutCubic);
             _moveTween.AppendCallback(() =>
             {
                 _currentPosition = new Vector2Int((int)transform.position.x, (int)transform.position.z);
@@ -72,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
     private void Fail()
     {
-        throw new NotImplementedException();
+        _moveTween.Kill();
     }
 
     private void OnMoveVerticalInputPerformed(InputAction.CallbackContext context)
