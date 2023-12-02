@@ -14,6 +14,7 @@ public class LevelController : MonoBehaviour
 
     private void Awake()
     {
+        _currentLevelIndex = PlayerPrefs.GetInt("level", 0);
         Player.Init(this);
         GameEvents.LevelCompleted.AddListener(OnLevelWon);
     }
@@ -28,6 +29,7 @@ public class LevelController : MonoBehaviour
     {
         _currentLevelIndex++;
         if (_currentLevelIndex == Levels.Count) _currentLevelIndex = 0;
+        PlayerPrefs.SetInt("level",_currentLevelIndex);
     }
     
     private void LoadLevel(LevelData level)
@@ -35,9 +37,8 @@ public class LevelController : MonoBehaviour
         int rowIndex = 0;
         int columnIndex = 0;
 
-        int rowCount = level.Tiles.Count / level.ColumnCount;
 
-        _currentLevel = new Tile[level.ColumnCount, rowCount];
+        _currentLevel = new Tile[level.ColumnCount, level.RowCount];
         for (int i = 0; i < level.Tiles.Count ; i++)
         {
             if (columnIndex == level.ColumnCount)

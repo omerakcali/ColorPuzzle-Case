@@ -9,6 +9,8 @@ public class LevelData : ScriptableObject
     public List<LevelTileData> Tiles;
     public Vector2Int PlayerPosition;
     public int PlayerStartColor;
+
+    public int RowCount => Tiles.Count / ColumnCount;
 }
 
 [Serializable]
