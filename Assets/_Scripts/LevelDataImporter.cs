@@ -82,6 +82,9 @@ public class LevelDataImporter : ScriptableObject
                 instance.Tiles.Add(tileData);
             }
         }
+        
+        EditorUtility.SetDirty(instance);
+        EditorApplication.ExecuteMenuItem("File/Save Project");
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         EditorUtility.FocusProjectWindow();
